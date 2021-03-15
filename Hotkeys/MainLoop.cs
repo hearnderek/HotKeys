@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -7,17 +6,6 @@ using System.Linq;
 
 namespace Hotkeys
 {
-
-
-
-    public class TextEventArgs : EventArgs
-    {
-        public string txt { get; set; }
-    }
-
-    public class KeyCheckEventArgs : EventArgs
-    {
-    }
 
     public class MainLoop
     {
@@ -37,8 +25,6 @@ namespace Hotkeys
             uiDO = caller;
             this.uiDispatcher = caller.Dispatcher;
         }
-
-
 
         public void Loop()
         {
