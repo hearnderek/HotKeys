@@ -72,7 +72,8 @@ namespace Hotkeys
         {
             this.hotKeys = new List<KeysAndAction>()
             {
-                new KeysAndAction(new [] { Key.LeftShift, Key.RightShift }, AskWorkUpdate)
+                new KeysAndAction(new [] { Key.LeftShift, Key.RightShift }, AskWorkUpdate),
+                new KeysAndAction(new [] { Key.LeftCtrl, Key.RightCtrl }, OpenTestWindow)
             };
             this.KeysWeCareAbout = new HashSet<Key>(hotKeys.SelectMany(x => x.keys));
         }
@@ -165,6 +166,18 @@ namespace Hotkeys
                 //{
                 //    this.Show();
                 //}
+            }
+        }
+
+        public void OpenTestWindow()
+        {
+            if (DateTime.Now > lag)
+            {
+                lag = DateTime.Now.AddMilliseconds(1000);
+
+                TestWindow win = new TestWindow();
+                win.Show();
+                
             }
         }
 
