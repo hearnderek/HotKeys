@@ -17,11 +17,11 @@ namespace Hotkeys
     /// <summary>
     /// TestWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class Notez : Window
     {
         public string SaveFile = "s.rtf";
 
-        public TestWindow()
+        public Notez()
         {
             InitializeComponent();
 
@@ -32,6 +32,16 @@ namespace Hotkeys
                 {
                     tr.Load(fs, System.Windows.DataFormats.Rtf);
                 }
+            }
+
+            this.KeyUp += HandleKeyUp;
+        }
+
+        private void HandleKeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+            {
+                this.Close();
             }
         }
     }

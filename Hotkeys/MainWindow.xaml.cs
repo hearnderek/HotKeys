@@ -171,6 +171,7 @@ namespace Hotkeys
             {
                 lag = DateTime.Now.AddMilliseconds(1000);
                 activeInputBox = true;
+                // It would be nice to replace this with my own custom input box, but that is kind of a waste of time
                 string answer = Microsoft.VisualBasic.Interaction.InputBox("What are you working on?", "Time Logger", "");
                 activeInputBox = false;
 
@@ -195,7 +196,7 @@ namespace Hotkeys
             }
         }
 
-        public TestWindow win = null;
+        public Notez win = null;
         public DisplayWindow dwin = null;
 
         public bool shown = false;
@@ -206,10 +207,12 @@ namespace Hotkeys
                 lag = DateTime.Now.AddMilliseconds(1000);
                 if (win == null) 
                 { 
-                    win = new TestWindow();
+                    win = new Notez();
                     win.Show();
                     win.Activate();
                     win.mTB.Focus();
+
+                    win.Closing += HandleTestWindowClosing;
                 }
                 else
                 {
@@ -242,7 +245,12 @@ namespace Hotkeys
             }
         }
 
-
+        private void HandleTestWindowClosing(object sender, CancelEventArgs e)
+        {
+            win = null;
+            dwin?.Close();
+            dwin = null;
+        }
     }
 
 }

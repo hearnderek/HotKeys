@@ -81,8 +81,8 @@
       <DependentUpon>DisplayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoopTickEventArgs.cs" />
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
+    <Compile Include="Notez.xaml.cs">
+      <DependentUpon>Notez.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextEventArgs.cs" />
     <Page Include="MainWindow.xaml">
@@ -103,7 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TestWindow.xaml">
+    <Page Include="Notez.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
