@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hotkeys
 {
@@ -10,15 +11,16 @@ namespace Hotkeys
     public class MainLoop
     {
         public delegate void UpdateText(object sender, TextEventArgs txt);
-        //public delegate void StartSequence(object sender, StartSequenceEventArgs e);
         public delegate void KeyCheck(object sender, KeyCheckEventArgs e);
+        public delegate void LoopTick(object sender, LoopTickEventArgs e);
 
         public event UpdateText OnTextUpdated;
-        //public event StartSequence OnStartSequence;
         public event KeyCheck OnKeyCheck;
+        public event LoopTick OnLoopTick;
 
         public Dispatcher uiDispatcher;
         public DependencyObject uiDO;
+        public Task task;
 
         public MainLoop(Window caller)
         {
@@ -35,6 +37,7 @@ namespace Hotkeys
                 System.Threading.Thread.Sleep(100);
                 uiDispatcher.BeginInvoke(OnTextUpdated, this, new TextEventArgs { txt = (i++).ToString() + " ... " + System.Threading.Thread.CurrentThread.ManagedThreadId });
                 uiDispatcher.BeginInvoke(OnKeyCheck, this, new KeyCheckEventArgs());
+                uiDispatcher.BeginInvoke(OnLoopTick, this, new LoopTickEventArgs());
             }
         }
 

@@ -19,9 +19,20 @@ namespace Hotkeys
     /// </summary>
     public partial class TestWindow : Window
     {
+        public string SaveFile = "s.rtf";
+
         public TestWindow()
         {
             InitializeComponent();
+
+            if (System.IO.File.Exists(SaveFile))
+            {
+                var tr = new TextRange(mTB.Document.ContentStart, mTB.Document.ContentEnd);
+                using (var fs = new System.IO.FileStream(SaveFile, System.IO.FileMode.Open))
+                {
+                    tr.Load(fs, System.Windows.DataFormats.Rtf);
+                }
+            }
         }
     }
 }

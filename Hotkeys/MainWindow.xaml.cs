@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Hotkeys
 {
@@ -24,6 +25,8 @@ namespace Hotkeys
         public HashSet<Key> KeysWeCareAbout;
         public List<KeysAndAction> hotKeys;
         public HashSet<Key> keysDown = new HashSet<Key>();
+        public MainLoop looper;
+
 
         // For writing out output
         DateTime lag = DateTime.Now;
@@ -36,7 +39,24 @@ namespace Hotkeys
             InitKeyCombos();
             InitText();
             InitBackgroundLoop();
+            this.Closing += HandleClosing;
         }
+
+        private void HandleClosing(object sender, CancelEventArgs e)
+        {
+            if(win != null)
+            {
+                win.Close();
+            }
+
+            if(dwin != null)
+            {
+                dwin.Close();
+            }
+
+            Application.Current.Shutdown();
+        }
+
 
         #region Init
 
@@ -49,10 +69,11 @@ namespace Hotkeys
         private void InitBackgroundLoop()
         {
             // Pumps events to the UI to check for updates
-            var looper = new MainLoop(this);
+            looper = new MainLoop(this);
             looper.OnTextUpdated += HandleUpdateText;
             looper.OnKeyCheck += HandleKeyCheck;
-            Task backgroundLoop = new Task(looper.Loop);
+            looper.OnLoopTick += HandleLoopTick;
+            looper.task = new Task(looper.Loop);
 
 
 
@@ -65,7 +86,7 @@ namespace Hotkeys
             //    this.WindowState = WindowState.Normal;
             //}, TaskScheduler.FromCurrentSynchronizationContext());
 
-            backgroundLoop.Start();
+            looper.task.Start();
         }
 
         private void InitKeyCombos()
@@ -124,6 +145,11 @@ namespace Hotkeys
             CheckKeys();
         }
 
+
+        private void HandleLoopTick(object sender, LoopTickEventArgs e)
+        {
+
+        }
         #endregion
 
 
@@ -169,15 +195,50 @@ namespace Hotkeys
             }
         }
 
+        public TestWindow win = null;
+        public DisplayWindow dwin = null;
+
+        public bool shown = false;
         public void OpenTestWindow()
         {
             if (DateTime.Now > lag)
             {
                 lag = DateTime.Now.AddMilliseconds(1000);
+                if (win == null) 
+                { 
+                    win = new TestWindow();
+                    win.Show();
+                    win.Activate();
+                    win.mTB.Focus();
+                }
+                else
+                {
+                    if (shown)
+                        win.Hide();
+                    else
+                    {
+                        win.Show();
+                        win.Activate();
+                        win.mTB.Focus();
+                    }
+                }
 
-                TestWindow win = new TestWindow();
-                win.Show();
-                
+                if (dwin == null)
+                {
+                    dwin = new DisplayWindow();
+                    dwin.BindedWindow = win;
+                    looper.OnLoopTick += dwin.HandleLoopTick;
+                    //dwin.Show();
+                }
+                else
+                {
+                    //if (shown)
+                    //    dwin.Hide();
+                    //else
+                    //    dwin.Show();
+                }
+
+                shown = !shown;
             }
         }
 
