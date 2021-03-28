@@ -22,6 +22,7 @@ namespace Hotkeys
     public partial class MainWindow : Window
     {
         // For registering hotkeys and their actions
+
         public HashSet<Key> KeysWeCareAbout;
         public List<KeysAndAction> hotKeys;
         public HashSet<Key> keysDown = new HashSet<Key>();
@@ -30,18 +31,16 @@ namespace Hotkeys
 
         // For writing out output
         DateTime lag = DateTime.Now;
-        bool activeInputBox = false;
 
-        
-        string logfile = System.IO.Path.Combine(
+
+        string notefile = System.IO.Path.Combine(
             System.Environment.GetEnvironmentVariable("USERPROFILE"),
-            @"cmdtools\logs\Timespent.log");
-
+            @"cmdtools\notes\hotkeys.txt");
 
         public MainWindow()
         {
+            Singletons.mainWindow = this;
             InitializeComponent();
-            InitKeyCombos();
             InitText();
             InitBackgroundLoop();
             this.Closing += HandleClosing;
@@ -50,15 +49,9 @@ namespace Hotkeys
 
         private void HandleClosing(object sender, CancelEventArgs e)
         {
-            if(win != null)
-            {
-                win.Close();
-            }
+            Singletons.notezWindow?.Close();
 
-            if(dwin != null)
-            {
-                dwin.Close();
-            }
+            Singletons.debugNotezWindow?.Close();
 
             Application.Current.Shutdown();
         }
@@ -75,35 +68,15 @@ namespace Hotkeys
         private void InitBackgroundLoop()
         {
             // Pumps events to the UI to check for updates
-            looper = new MainLoop(this);
-            looper.OnTextUpdated += HandleUpdateText;
-            looper.OnKeyCheck += HandleKeyCheck;
-            looper.OnLoopTick += HandleLoopTick;
-            looper.task = new Task(looper.Loop);
-
-
-
-            //- Not needed anymore but took a moment to figure out FromCurrentSynchronizationContext
-            //backgroundLoop.ContinueWith((t) => {
-            //    this.WindowState = WindowState.Minimized;
-            //    //Application.Current.Dispatcher.BeginInvokeShutdown(DispatcherPriority.Normal); 
-            //}, TaskScheduler.FromCurrentSynchronizationContext());
-            //backgroundLoop.ContinueWith((t) => {
-            //    this.WindowState = WindowState.Normal;
-            //}, TaskScheduler.FromCurrentSynchronizationContext());
-
-            looper.task.Start();
+            Singletons.backgroudLoop = new MainLoop(this);
+            Singletons.backgroudLoop.OnTextUpdated += HandleUpdateText;
+            Singletons.backgroudLoop.OnKeyCheck += Singletons.hotkeys.HandleKeyCheck;
+            Singletons.backgroudLoop.OnLoopTick += HandleLoopTick;
+            Singletons.backgroudLoop.task = new Task(Singletons.backgroudLoop.Loop);
+            Singletons.backgroudLoop.task.Start();
         }
 
-        private void InitKeyCombos()
-        {
-            this.hotKeys = new List<KeysAndAction>()
-            {
-                new KeysAndAction(new [] { Key.LeftShift, Key.RightShift }, AskWorkUpdate),
-                new KeysAndAction(new [] { Key.LeftCtrl, Key.RightCtrl }, OpenTestWindow)
-            };
-            this.KeysWeCareAbout = new HashSet<Key>(hotKeys.SelectMany(x => x.keys));
-        }
+
 
         #endregion
 
@@ -134,23 +107,6 @@ namespace Hotkeys
             UpdateCenterLabel(txt.txt);
         }
 
-        private void HandleKeyCheck(object sender, KeyCheckEventArgs e)
-        {
-            // When minimized we no longer see keystates
-            // we can still see keystates when not visible
-
-            keysDown.Clear();
-            foreach (Key key in KeysWeCareAbout)
-            {
-                if (Keyboard.IsKeyDown(key))
-                {
-                    keysDown.Add(key);
-                }
-            }
-
-            CheckKeys();
-        }
-
 
         private void HandleLoopTick(object sender, LoopTickEventArgs e)
         {
@@ -158,106 +114,6 @@ namespace Hotkeys
         }
         #endregion
 
-
-        public void CheckKeys()
-        {
-            HashSet<Key> keysDown = new HashSet<Key>(KeysWeCareAbout.Where(key => Keyboard.IsKeyDown(key)));
-            foreach(KeysAndAction hotKey in hotKeys)
-            {
-                if(hotKey.keys.All(k => keysDown.Contains(k)))
-                {
-                    hotKey.action();
-                }
-            }
-        }
-
-        public void AskWorkUpdate()
-        {
-            if (DateTime.Now > lag && !activeInputBox)
-            {
-                lag = DateTime.Now.AddMilliseconds(1000);
-                activeInputBox = true;
-                // It would be nice to replace this with my own custom input box, but that is kind of a waste of time
-                string answer = Microsoft.VisualBasic.Interaction.InputBox("What are you working on?", "Time Logger", "");
-                activeInputBox = false;
-
-                if (!String.IsNullOrWhiteSpace(answer))
-                {
-                    string now = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                    string line = now + " - " + answer;
-                                        
-                    System.IO.File.AppendAllLines(logfile, new[] { line });
-                    UpdateLastMessageLabel(line);
-                }
-
-
-                // Minimize and Maximize buttons were removed by setting ResizeMode="NoResize" within the window XAML def
-                //
-                //if (this.IsVisible)
-                //{
-                //    this.Hide();
-                //} else
-                //{
-                //    this.Show();
-                //}
-            }
-        }
-
-        public Notez win = null;
-        public DisplayWindow dwin = null;
-
-        public bool shown = false;
-        public void OpenTestWindow()
-        {
-            if (DateTime.Now > lag)
-            {
-                lag = DateTime.Now.AddMilliseconds(1000);
-                if (win == null) 
-                { 
-                    win = new Notez();
-                    win.Show();
-                    win.Activate();
-                    win.mTB.Focus();
-
-                    win.Closing += HandleTestWindowClosing;
-                }
-                else
-                {
-                    if (shown)
-                        win.Hide();
-                    else
-                    {
-                        win.Show();
-                        win.Activate();
-                        win.mTB.Focus();
-                    }
-                }
-
-                if (dwin == null)
-                {
-                    dwin = new DisplayWindow();
-                    dwin.BindedWindow = win;
-                    looper.OnLoopTick += dwin.HandleLoopTick;
-                    //dwin.Show();
-                }
-                else
-                {
-                    //if (shown)
-                    //    dwin.Hide();
-                    //else
-                    //    dwin.Show();
-                }
-
-                shown = !shown;
-            }
-        }
-
-        private void HandleTestWindowClosing(object sender, CancelEventArgs e)
-        {
-            win = null;
-            dwin?.Close();
-            dwin = null;
-        }
     }
 
 }

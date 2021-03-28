@@ -8,7 +8,7 @@
         Title="Notez" Height="450" Width="800">
     <Grid>
         <RichTextBox 
-            Name="mTB"
+            Name="MainText"
             
             AcceptsReturn="True"  IsReadOnly="False" 
             HorizontalScrollBarVisibility="Auto" 

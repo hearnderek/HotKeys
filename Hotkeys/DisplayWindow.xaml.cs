@@ -17,7 +17,7 @@ namespace Hotkeys
     /// <summary>
     /// TestWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class DisplayWindow : Window
+    public partial class DebugNotezWindow : Window
     {
         public DateTime lag = DateTime.Now;
 
@@ -27,7 +27,7 @@ namespace Hotkeys
             set 
             {
                 _bw = value;
-                _bw.mTB.TextChanged += HandleTextChanged;
+                _bw.MainText.TextChanged += HandleTextChanged;
                 updated = true;
             }
         }
@@ -39,7 +39,7 @@ namespace Hotkeys
             updated = true;
         }
 
-        public DisplayWindow()
+        public DebugNotezWindow()
         {
             InitializeComponent();
         }
@@ -49,7 +49,7 @@ namespace Hotkeys
             if (DateTime.Now > lag && updated)
             {
                 lag = DateTime.Now.AddMilliseconds(1000);
-                var tr = new TextRange(BindedWindow.mTB.Document.ContentStart, BindedWindow.mTB.Document.ContentEnd);
+                var tr = new TextRange(BindedWindow.MainText.Document.ContentStart, BindedWindow.MainText.Document.ContentEnd);
                 using (var fs = System.IO.File.Create(BindedWindow.SaveFile))
                 {
                     tr.Save(fs, DataFormats.Rtf);
@@ -68,7 +68,7 @@ namespace Hotkeys
 
         public void DisplayBlocks()
         {
-            Block bptr = BindedWindow.mTB.Document.Blocks.FirstBlock;
+            Block bptr = BindedWindow.MainText.Document.Blocks.FirstBlock;
             this.Content = "";
             this.Content += updated.ToString() + Environment.NewLine;
             while (bptr != null)

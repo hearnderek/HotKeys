@@ -76,15 +76,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="KeyCheckEventArgs.cs" />
+    <Compile Include="Misc\Conf.cs" />
+    <Compile Include="Misc\KeyCheckEventArgs.cs" />
     <Compile Include="DisplayWindow.xaml.cs">
       <DependentUpon>DisplayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoopTickEventArgs.cs" />
+    <Compile Include="Misc\LoopTickEventArgs.cs" />
+    <Compile Include="Misc\HotKeys.cs" />
     <Compile Include="Notez.xaml.cs">
       <DependentUpon>Notez.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextEventArgs.cs" />
+    <Compile Include="Misc\TextEventArgs.cs" />
+    <Compile Include="Misc\Singletons.cs" />
+    <Compile Include="Misc\WorkUpdater.cs" />
+    <Compile Include="Misc\NotezPopupController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,8 +98,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="KeysAndAction.cs" />
-    <Compile Include="MainLoop.cs" />
+    <Compile Include="Misc\KeysAndAction.cs" />
+    <Compile Include="Background\MainLoop.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -148,6 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="robin.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="me.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="m6.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

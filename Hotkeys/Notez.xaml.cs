@@ -19,7 +19,7 @@ namespace Hotkeys
     /// </summary>
     public partial class Notez : Window
     {
-        public string SaveFile = "s.rtf";
+        public string SaveFile = Conf.noteFile;
 
         public Notez()
         {
@@ -27,7 +27,7 @@ namespace Hotkeys
 
             if (System.IO.File.Exists(SaveFile))
             {
-                var tr = new TextRange(mTB.Document.ContentStart, mTB.Document.ContentEnd);
+                var tr = new TextRange(MainText.Document.ContentStart, MainText.Document.ContentEnd);
                 using (var fs = new System.IO.FileStream(SaveFile, System.IO.FileMode.Open))
                 {
                     tr.Load(fs, System.Windows.DataFormats.Rtf);

@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hotkeys
 {
-
+    /// <summary>
+    /// To be run in the background to push Tick events throughout the system
+    /// </summary>
     public class MainLoop
     {
         public delegate void UpdateText(object sender, TextEventArgs txt);
@@ -22,12 +24,19 @@ namespace Hotkeys
         public DependencyObject uiDO;
         public Task task;
 
+        /// <summary>
+        /// Construct object with a callback to the origional window so messages can be dispatched to the correct location
+        /// </summary>
+        /// <param name="caller"></param>
         public MainLoop(Window caller)
         {
             uiDO = caller;
             this.uiDispatcher = caller.Dispatcher;
         }
 
+        /// <summary>
+        /// Pumps ticks every 100 milliseconds to the system
+        /// </summary>
         public void Loop()
         {
             long i = 0;
