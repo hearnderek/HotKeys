@@ -31,7 +31,12 @@ namespace Hotkeys
         // For writing out output
         DateTime lag = DateTime.Now;
         bool activeInputBox = false;
-        string logfile = @"C:\Users\derek.hearn\cmdtools\logs\Timespent.log";
+
+        
+        string logfile = System.IO.Path.Combine(
+            System.Environment.GetEnvironmentVariable("USERPROFILE"),
+            @"cmdtools\logs\Timespent.log");
+
 
         public MainWindow()
         {
@@ -40,6 +45,7 @@ namespace Hotkeys
             InitText();
             InitBackgroundLoop();
             this.Closing += HandleClosing;
+
         }
 
         private void HandleClosing(object sender, CancelEventArgs e)
@@ -179,6 +185,7 @@ namespace Hotkeys
                 {
                     string now = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     string line = now + " - " + answer;
+                                        
                     System.IO.File.AppendAllLines(logfile, new[] { line });
                     UpdateLastMessageLabel(line);
                 }
