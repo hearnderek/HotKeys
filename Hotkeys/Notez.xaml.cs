@@ -43,6 +43,37 @@ namespace Hotkeys
             {
                 this.Close();
             }
+
+
+            // Apply line (paragraph) highlighting
+            Block bptr = MainText.Document.Blocks.FirstBlock;
+            while (bptr != null)
+            {
+                if(bptr is Paragraph)
+                {
+                    Paragraph p = (Paragraph) bptr;
+                    TextRange tr = new TextRange(p.ContentStart, p.ContentEnd);
+                    var txt = tr.Text;
+
+                    if (txt.EndsWith(";"))
+                    {
+                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
+                    }
+                    else if (txt.EndsWith("?") || txt.Contains("[ ]"))
+                    {
+                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Yellow);
+                    } 
+                    else if (txt.EndsWith("!"))
+                    {
+                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Cyan);
+                    }
+                    else
+                    {
+                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.LimeGreen);
+                    }
+                }
+                bptr = bptr.NextBlock;
+            }
         }
     }
 }
