@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,39 +20,19 @@ namespace Hotkeys
     /// </summary>
     public partial class MainWindow : Window
     {
-        // For registering hotkeys and their actions
-
-        public HashSet<Key> KeysWeCareAbout;
-        public List<KeysAndAction> hotKeys;
-        public HashSet<Key> keysDown = new HashSet<Key>();
-        public MainLoop looper;
-
-
-        // For writing out output
-        DateTime lag = DateTime.Now;
-
-
-        string notefile = System.IO.Path.Combine(
-            System.Environment.GetEnvironmentVariable("USERPROFILE"),
-            @"cmdtools\notes\hotkeys.txt");
 
         public MainWindow()
         {
             Singletons.mainWindow = this;
             InitializeComponent();
-            InitText();
-            InitBackgroundLoop();
-            this.Closing += HandleClosing;
-            
+            WholeSystem.Initialize();
 
+            InitText();
+            this.Closing += HandleClosing;
         }
 
         private void HandleClosing(object sender, CancelEventArgs e)
         {
-            Singletons.notezWindow?.Close();
-
-            Singletons.debugNotezWindow?.Close();
-
             Application.Current.Shutdown();
         }
 
@@ -65,19 +44,6 @@ namespace Hotkeys
             UpdateCenterLabel("Hit Both shift buttons");
             UpdateLastMessageLabel("Hit Both shift buttons");
         }
-
-        private void InitBackgroundLoop()
-        {
-            // Pumps events to the UI to check for updates
-            Singletons.backgroudLoop = new MainLoop(this);
-            Singletons.backgroudLoop.OnTextUpdated += HandleUpdateText;
-            Singletons.backgroudLoop.OnKeyCheck += Singletons.hotkeys.HandleKeyCheck;
-            Singletons.backgroudLoop.OnLoopTick += HandleLoopTick;
-            Singletons.backgroudLoop.task = new Task(Singletons.backgroudLoop.Loop);
-            Singletons.backgroudLoop.task.Start();
-        }
-
-
 
         #endregion
 
@@ -109,10 +75,6 @@ namespace Hotkeys
         }
 
 
-        private void HandleLoopTick(object sender, LoopTickEventArgs e)
-        {
-
-        }
         #endregion
 
         private void Update_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -123,6 +85,14 @@ namespace Hotkeys
         private void Notez_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Singletons.hotkeys.GetNotezOpenMethod()();
+        }
+
+        private void Conf_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(!Singletons.configController.IsWindowOpen())
+            {
+                Singletons.configController.OpenWindow();
+            }
         }
     }
 

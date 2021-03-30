@@ -47,10 +47,16 @@ namespace Hotkeys
             while (true)
             {
                 System.Threading.Thread.Sleep(100);
-                uiDispatcher.BeginInvoke(OnTextUpdated, this, new TextEventArgs { txt = StartTime.ToString("[yyyy-MM-dd HH-mm-dd]: ") + (i++).ToString()});
-                uiDispatcher.BeginInvoke(OnKeyCheck, this, new KeyCheckEventArgs());
-                uiDispatcher.BeginInvoke(OnLoopTick, this, new LoopTickEventArgs());
+                Invoke(uiDispatcher, OnTextUpdated, this, new TextEventArgs { txt = StartTime.ToString("[yyyy-MM-dd HH-mm-dd]: ") + (i++).ToString()});
+                Invoke(uiDispatcher, OnKeyCheck, this, new KeyCheckEventArgs());
+                Invoke(uiDispatcher, OnLoopTick, this, new LoopTickEventArgs());
             }
+        }
+
+        public void Invoke(Dispatcher d, Delegate @event, Object caller, Object @args)
+        {
+            if(@event != null)
+                d.BeginInvoke(@event, caller, @args);
         }
 
     }

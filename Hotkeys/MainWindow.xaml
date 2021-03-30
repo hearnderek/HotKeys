@@ -17,6 +17,9 @@
             <MenuItem Name="Notez" Header="_Notez" ToolTip="Both Ctrl keys" 
                       Click="Notez_MenuItem_Click">
             </MenuItem>
+            <MenuItem Name="Conf" Header="_Conf" ToolTip="Update the configuration" 
+                      Click="Conf_MenuItem_Click">
+            </MenuItem>
         </Menu>
         <Grid Margin="10,0,10,0">
 

@@ -76,21 +76,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Misc\Conf.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Conf.cs" />
     <Compile Include="Misc\KeyCheckEventArgs.cs" />
     <Compile Include="DisplayWindow.xaml.cs">
       <DependentUpon>DisplayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\LoopTickEventArgs.cs" />
     <Compile Include="Misc\GlobalHotKeys.cs" />
+    <Compile Include="ExternalAPIs\PasteBinAPI.cs" />
     <Compile Include="Notez.xaml.cs">
       <DependentUpon>Notez.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\TextEventArgs.cs" />
-    <Compile Include="Misc\Singletons.cs" />
+    <Compile Include="Singletons.cs" />
     <Compile Include="Controllers\WorkUpdateController.cs" />
     <Compile Include="Controllers\NotezPopupController.cs" />
     <Compile Include="DynamicGUI\TextAddins.cs" />
+    <Compile Include="ConfigWindow.xaml.cs">
+      <DependentUpon>ConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WholeSystem.cs" />
     <Compile Include="WorkUpdate.xaml.cs">
       <DependentUpon>WorkUpdate.xaml</DependentUpon>
     </Compile>
@@ -115,6 +121,10 @@
     <Page Include="Notez.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WorkUpdate.xaml">
       <SubType>Designer</SubType>

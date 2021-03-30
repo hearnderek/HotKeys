@@ -9,11 +9,13 @@
         public static NotezWindow notezWindow;
         public static WorkUpdateWindow workUpdateWindow;
         public static DebugNotezWindow debugNotezWindow;
+        public static ConfigWindow configWindow;
 
-        public static NotezPopupController notezPopupController = new NotezPopupController();
-        public static WorkUpdateController workUpdateController = new WorkUpdateController();
+        public static NotezPopupController notezPopupController;
+        public static WorkUpdateController workUpdateController;
+        public static ConfigController configController;
 
-        public static GlobalHotKeys hotkeys = new GlobalHotKeys();
+        public static GlobalHotKeys hotkeys;
         public static MainLoop backgroudLoop;
 
     }
