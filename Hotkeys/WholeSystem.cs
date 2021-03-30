@@ -34,6 +34,7 @@ namespace Hotkeys
             if(System.IO.File.Exists(Conf.confFile))
             {
                 Conf.LoadConfigurationFromDisk();
+                //new PasteBinAPI(Conf.pasteBinDeveloperAPIKey, Conf.pasteBinAPIUsername, Conf.pasteBinAPIUserPassword).Login();
             }
         }
 
