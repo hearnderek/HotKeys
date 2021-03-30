@@ -5,7 +5,7 @@ namespace Hotkeys
 {
     public class NotezPopupController
     {
-        public Notez win = null;
+        public NotezWindow win = null;
         public DebugNotezWindow dwin = null;
 
         public bool shown = false;
@@ -14,14 +14,14 @@ namespace Hotkeys
 
         public void OpenTestWindow()
         {
-            var win = Singletons.notez;
+            var win = Singletons.notezWindow;
             var dwin = Singletons.debugNotezWindow;
             if (DateTime.Now > lag)
             {
                 lag = DateTime.Now.AddMilliseconds(Conf.lagMilliseconds);
                 if (win == null)
                 {
-                    win = new Notez();
+                    win = new NotezWindow();
                     win.Show();
                     win.Activate();
                     win.MainText.Focus();
@@ -61,7 +61,7 @@ namespace Hotkeys
 
         private void HandleTestWindowClosing(object sender, CancelEventArgs e)
         {
-            Singletons.notez = null;
+            Singletons.notezWindow = null;
             dwin?.Close();
             dwin = null;
         }

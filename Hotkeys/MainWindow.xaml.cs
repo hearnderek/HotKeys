@@ -44,6 +44,7 @@ namespace Hotkeys
             InitText();
             InitBackgroundLoop();
             this.Closing += HandleClosing;
+            
 
         }
 

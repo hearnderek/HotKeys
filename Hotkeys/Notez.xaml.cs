@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -17,11 +15,11 @@ namespace Hotkeys
     /// <summary>
     /// TestWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class Notez : Window
+    public partial class NotezWindow : Window
     {
         public string SaveFile = Conf.noteFile;
 
-        public Notez()
+        public NotezWindow()
         {
             InitializeComponent();
 
@@ -35,6 +33,12 @@ namespace Hotkeys
             }
 
             this.KeyUp += HandleKeyUp;
+            this.MainText.PreviewMouseLeftButtonUp += HandleMouseButtonUp;
+        }
+
+        private void HandleMouseButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            TextAddins.UpdateDocument(MainText);
         }
 
         private void HandleKeyUp(object sender, KeyEventArgs e)
@@ -44,36 +48,7 @@ namespace Hotkeys
                 this.Close();
             }
 
-
-            // Apply line (paragraph) highlighting
-            Block bptr = MainText.Document.Blocks.FirstBlock;
-            while (bptr != null)
-            {
-                if(bptr is Paragraph)
-                {
-                    Paragraph p = (Paragraph) bptr;
-                    TextRange tr = new TextRange(p.ContentStart, p.ContentEnd);
-                    var txt = tr.Text;
-
-                    if (txt.EndsWith(";"))
-                    {
-                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
-                    }
-                    else if (txt.EndsWith("?") || txt.Contains("[ ]"))
-                    {
-                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Yellow);
-                    } 
-                    else if (txt.EndsWith("!"))
-                    {
-                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Cyan);
-                    }
-                    else
-                    {
-                        tr.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.LimeGreen);
-                    }
-                }
-                bptr = bptr.NextBlock;
-            }
+            TextAddins.UpdateDocument(MainText);
         }
     }
 }

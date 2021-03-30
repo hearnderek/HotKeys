@@ -21,8 +21,8 @@ namespace Hotkeys
     {
         public DateTime lag = DateTime.Now;
 
-        private Notez _bw;
-        public Notez BindedWindow {
+        private NotezWindow _bw;
+        public NotezWindow BindedWindow {
             get => _bw;
             set 
             {

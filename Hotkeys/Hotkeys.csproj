@@ -82,14 +82,18 @@
       <DependentUpon>DisplayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\LoopTickEventArgs.cs" />
-    <Compile Include="Misc\HotKeys.cs" />
+    <Compile Include="Misc\GlobalHotKeys.cs" />
     <Compile Include="Notez.xaml.cs">
       <DependentUpon>Notez.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\TextEventArgs.cs" />
     <Compile Include="Misc\Singletons.cs" />
-    <Compile Include="Misc\WorkUpdater.cs" />
-    <Compile Include="Misc\NotezPopupController.cs" />
+    <Compile Include="Controllers\WorkUpdateController.cs" />
+    <Compile Include="Controllers\NotezPopupController.cs" />
+    <Compile Include="DynamicGUI\TextAddins.cs" />
+    <Compile Include="WorkUpdate.xaml.cs">
+      <DependentUpon>WorkUpdate.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +113,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Notez.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,54 @@
+﻿<Window x:Class="Hotkeys.WorkUpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotkeys"
+        mc:Ignorable="d"
+        Title="WorkUpdate" Height="150" Width="600"
+        Background="Black">
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="Black" Foreground="LimeGreen">
+            <MenuItem Header="_View" 
+                      Click="MenuItem_Click">
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="What are you working on?" 
+               
+                   Grid.Column="1" 
+                   Grid.Row="0" 
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Bottom"
+               
+                   Foreground="White" 
+                   />
+        
+            <TextBox Name="WorkInput" 
+                 
+                     Height="23" 
+                     Width="490" 
+                     Grid.Column="1" 
+                     Grid.Row="1" 
+                 
+                     Text="" 
+                     TextWrapping="NoWrap" 
+                     Background="LightGray" 
+                 
+                     AcceptsReturn="False"
+                     KeyDown="WorkInput_KeyDown"    
+                     />
+        </Grid>
+    </DockPanel>
+</Window>
