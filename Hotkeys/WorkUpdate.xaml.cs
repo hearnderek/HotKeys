@@ -31,15 +31,20 @@ namespace Hotkeys
         {
             if(e.Key == Key.Enter || e.Key == Key.Return)
             {
-                Singletons.workUpdateController.WriteAnswer(WorkInput.Text);
-
-                this.Close();
+                Submit();
             }
 
-            if(e.Key == Key.Escape)
+            if (e.Key == Key.Escape)
             {
                 this.Close();
             }
+        }
+
+        private void Submit()
+        {
+            Singletons.workUpdateController.WriteAnswer(WorkInput.Text);
+
+            this.Close();
         }
 
         private void HandleClosing(object sender, CancelEventArgs e)
@@ -49,7 +54,9 @@ namespace Hotkeys
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            WorkInput.Text = "Hello world!";
+            Submit();
         }
+
+
     }
 }

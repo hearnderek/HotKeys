@@ -19,6 +19,16 @@ namespace Hotkeys
             InitKeyCombos();
         }
 
+        public Action GetWorkUpdateMethod()
+        {
+            return new Action(Singletons.workUpdateController.Ask);
+        }
+
+        public Action GetNotezOpenMethod()
+        {
+            return new Action(Singletons.notezPopupController.OpenNotezWindow);
+        }
+
         /// <summary>
         /// Decoupled from the keyboard, we check to see if our set of keys has our needed combinations
         /// </summary>
@@ -43,8 +53,8 @@ namespace Hotkeys
             // It would be best to make this lazy
             this.hotKeys = new List<KeysAndAction>()
             {
-                new KeysAndAction(new [] { Key.LeftShift, Key.RightShift }, Singletons.workUpdateController.Ask),
-                new KeysAndAction(new [] { Key.LeftCtrl, Key.RightCtrl }, Singletons.notezPopupController.OpenTestWindow)
+                new KeysAndAction(new [] { Key.LeftShift, Key.RightShift }, GetWorkUpdateMethod()),
+                new KeysAndAction(new [] { Key.LeftCtrl, Key.RightCtrl }, GetNotezOpenMethod())
             };
             this.KeysWeCareAbout = new HashSet<Key>(hotKeys.SelectMany(x => x.keys));
         }

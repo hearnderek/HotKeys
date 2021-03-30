@@ -162,11 +162,5 @@
   <ItemGroup>
     <Resource Include="robin.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="me.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="m6.ico" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

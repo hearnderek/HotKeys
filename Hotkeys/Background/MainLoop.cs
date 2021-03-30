@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Hotkeys
 {
@@ -23,6 +24,8 @@ namespace Hotkeys
         public Dispatcher uiDispatcher;
         public DependencyObject uiDO;
         public Task task;
+
+        private DateTime StartTime = DateTime.Now;
 
         /// <summary>
         /// Construct object with a callback to the origional window so messages can be dispatched to the correct location
@@ -44,7 +47,7 @@ namespace Hotkeys
             while (true)
             {
                 System.Threading.Thread.Sleep(100);
-                uiDispatcher.BeginInvoke(OnTextUpdated, this, new TextEventArgs { txt = (i++).ToString() + " ... " + System.Threading.Thread.CurrentThread.ManagedThreadId });
+                uiDispatcher.BeginInvoke(OnTextUpdated, this, new TextEventArgs { txt = StartTime.ToString("[yyyy-MM-dd HH-mm-dd]: ") + (i++).ToString()});
                 uiDispatcher.BeginInvoke(OnKeyCheck, this, new KeyCheckEventArgs());
                 uiDispatcher.BeginInvoke(OnLoopTick, this, new LoopTickEventArgs());
             }

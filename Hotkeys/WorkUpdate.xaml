@@ -10,7 +10,7 @@
     
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="Black" Foreground="LimeGreen">
-            <MenuItem Header="_View" 
+            <MenuItem Header="_Enter" ToolTip="Press Enter" 
                       Click="MenuItem_Click">
             </MenuItem>
         </Menu>

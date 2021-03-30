@@ -115,6 +115,15 @@ namespace Hotkeys
         }
         #endregion
 
+        private void Update_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Singletons.hotkeys.GetWorkUpdateMethod()();
+        }
+
+        private void Notez_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Singletons.hotkeys.GetNotezOpenMethod()();
+        }
     }
 
 }

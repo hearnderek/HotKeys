@@ -10,12 +10,14 @@
         <RichTextBox 
             Name="MainText"
             
-            AcceptsReturn="True"  IsReadOnly="False" 
             HorizontalScrollBarVisibility="Auto" 
             VerticalScrollBarVisibility="Visible" 
             Foreground="LimeGreen"
             Background="Black"
-
+            
+            AcceptsTab="True"
+            AcceptsReturn="True"  
+            IsReadOnly="False" 
             xml:lang="en"
             SpellCheck.IsEnabled="True"
         >

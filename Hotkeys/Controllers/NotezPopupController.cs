@@ -12,7 +12,7 @@ namespace Hotkeys
         public DateTime lag = DateTime.MinValue;
 
 
-        public void OpenTestWindow()
+        public void OpenNotezWindow()
         {
             var win = Singletons.notezWindow;
             var dwin = Singletons.debugNotezWindow;

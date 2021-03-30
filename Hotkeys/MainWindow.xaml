@@ -8,13 +8,25 @@
         Title="Streamliner" Height="100" Width="300"
         Background="Black"
         ResizeMode="NoResize">
-    <Grid Margin="10,0,10,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Label Name="centerLabel" Content="Label" Foreground="White" Margin="10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="31"/>
-        <Label x:Name="lastMessageLabel" Content="" Foreground="White" Margin="10,30,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="31"/>
 
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="Black" Foreground="LimeGreen">
+            <MenuItem Name="Update" Header="_Update"  ToolTip="Both Shift keys"
+                      Click="Update_MenuItem_Click">
+            </MenuItem>
+            <MenuItem Name="Notez" Header="_Notez" ToolTip="Both Ctrl keys" 
+                      Click="Notez_MenuItem_Click">
+            </MenuItem>
+        </Menu>
+        <Grid Margin="10,0,10,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Name="centerLabel" Content="Label" Foreground="White" Margin="10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="31"/>
+            <Label Visibility="Collapsed"  x:Name="lastMessageLabel" Content="" Foreground="White" Margin="10,30,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="31"/>
+
+        </Grid>
+    </DockPanel>
 </Window>
