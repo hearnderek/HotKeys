@@ -142,18 +142,42 @@ namespace Hotkeys
                     throw;
                 }
             }
-
         }
 
-        public void DeletePaste()
+        public string DeletePaste()
         {
-            // TODO
+            using (var client = new HttpClient())
+            {
+                var payload = string.Format(
+                    @"api_option=paste&api_dev_key={0}&api_user_key={1}&api_paste_private=2api_paste_name={2}&api_paste_expire_date=N&paste_format=None&api_paste_code{}",
+                    System.Net.WebUtility.UrlEncode(developerKey),
+                    System.Net.WebUtility.UrlEncode(userKey),
+                    System.Net.WebUtility.UrlEncode(pasteTitle));
+
+                var data = new StringContent(payload, System.Text.Encoding.UTF8, "application/x-www-form-urlencoded");
+
+                try
+                {
+
+                    HttpResponseMessage response = client.PostAsync("https://pastebin.com/api/api_raw.php", data).Result;
+                    // This should just be our userKey
+                    var contents = response.Content;
+
+                    return contents.ReadAsStringAsync().Result;
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
 
-        public void WritePaste()
-        {
-            // TODO
-        }
+        //public string WritePaste()
+        //{
+        //    // TODO
+        //}
     }
 
 

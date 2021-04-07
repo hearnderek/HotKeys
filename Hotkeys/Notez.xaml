@@ -27,7 +27,7 @@
                 </Style>
             </RichTextBox.Resources>
             <FlowDocument>
-                <Paragraph FontSize="14">Hello, world!</Paragraph>
+                <Paragraph  FontSize="14">Hello, world!</Paragraph>
             </FlowDocument>
         </RichTextBox>
     </Grid>

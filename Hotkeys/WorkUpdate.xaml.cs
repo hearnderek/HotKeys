@@ -57,6 +57,5 @@ namespace Hotkeys
             Submit();
         }
 
-
     }
 }
