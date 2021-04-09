@@ -96,6 +96,9 @@
     <Compile Include="ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Timespent.xaml.cs">
+      <DependentUpon>Timespent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WholeSystem.cs" />
     <Compile Include="WorkUpdate.xaml.cs">
       <DependentUpon>WorkUpdate.xaml</DependentUpon>
@@ -125,6 +128,10 @@
     <Page Include="ConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Timespent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WorkUpdate.xaml">
       <SubType>Designer</SubType>

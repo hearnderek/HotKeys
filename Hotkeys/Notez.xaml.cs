@@ -19,6 +19,8 @@ namespace Hotkeys
     {
         public string SaveFile = Conf.noteFile;
 
+        public DateTime Lag = DateTime.MinValue;
+        bool Updating = false;
         public NotezWindow()
         {
             InitializeComponent();
@@ -38,7 +40,13 @@ namespace Hotkeys
 
         private void HandleMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
-            TextAddins.UpdateDocument(MainText);
+            if (Lag <= DateTime.Now)
+            {
+                Lag = DateTime.Now.AddMilliseconds(Conf.lagTypingUpdate);
+                Updating = true;
+                TextAddins.UpdateDocument(MainText);
+                Updating = false;
+            }
         }
 
         private void HandleKeyUp(object sender, KeyEventArgs e)
@@ -48,7 +56,13 @@ namespace Hotkeys
                 this.Close();
             }
 
-            TextAddins.UpdateDocument(MainText);
+            if (Lag <= DateTime.Now)
+            {
+                Lag = DateTime.Now.AddMilliseconds(Conf.lagTypingUpdate);
+                Updating = true;
+                TextAddins.UpdateDocument(MainText);
+                Updating = false;
+            }
         }
     }
 }

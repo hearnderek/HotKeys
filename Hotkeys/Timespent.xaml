@@ -1,0 +1,34 @@
+﻿<Window x:Class="Hotkeys.TimespentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotkeys"
+        mc:Ignorable="d"
+        Title="Timespent" Height="450" Width="800">
+    <Grid>
+        <RichTextBox
+            Name="MainText"
+            
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto"
+            
+            Foreground="LimeGreen"
+            Background="Black"
+            
+            IsReadOnly="True"
+            >
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+            
+            <FlowDocument Name="Doc">
+                <Paragraph Name="Para">
+                    
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
+</Window>

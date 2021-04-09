@@ -42,7 +42,7 @@ namespace Hotkeys
                 string now = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                 string line = now + " - " + answer;
 
-                System.IO.File.AppendAllLines(Conf.logFile, new[] { line });
+                System.IO.File.AppendAllLines(Conf.timespentFile, new[] { line });
                 cache.LastMessageUpdate = line;
             }
         }

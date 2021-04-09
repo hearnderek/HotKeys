@@ -10,13 +10,14 @@ namespace Hotkeys
     {
         public static string baseFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "hotkeys");
 
-        public static string logFile = System.IO.Path.Combine(baseFolder, "Timespent.log");
+        public static string timespentFile = System.IO.Path.Combine(baseFolder, "Timespent.log");
 
         public static string noteFile = System.IO.Path.Combine(baseFolder, "Note.txt");
 
         public static string confFile = System.IO.Path.Combine(baseFolder, "Conf.xml");
 
         public static double lagMilliseconds = 1000;
+        public static double lagTypingUpdate = 500;
         public static double minifiedTextSize = 2.0;
         public static double normalTextSize = 14.0;
         public static double titleTextSize = 18.0;

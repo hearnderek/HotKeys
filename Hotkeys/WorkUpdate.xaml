@@ -13,6 +13,9 @@
             <MenuItem Header="_Enter" ToolTip="Press Enter" 
                       Click="MenuItem_Click">
             </MenuItem>
+            <MenuItem Header="_View" ToolTip="Press Enter" 
+                      Click="MenuItem_View_Click">
+            </MenuItem>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>

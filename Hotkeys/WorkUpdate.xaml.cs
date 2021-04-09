@@ -43,6 +43,7 @@ namespace Hotkeys
         private void Submit()
         {
             Singletons.workUpdateController.WriteAnswer(WorkInput.Text);
+            Singletons.timespentWindow?.UpdateTextFromFile();
 
             this.Close();
         }
@@ -57,5 +58,18 @@ namespace Hotkeys
             Submit();
         }
 
+        private void MenuItem_View_Click(object sender, RoutedEventArgs e)
+        {
+            if(Singletons.timespentWindow == null)
+            {
+                Singletons.timespentWindow = new TimespentWindow();
+                Singletons.timespentWindow.Show();
+                Singletons.timespentWindow.Activate();
+            }
+            else
+            {
+                Singletons.timespentWindow.Activate();
+            }
+        }
     }
 }
