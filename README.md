@@ -36,3 +36,6 @@ As time went on I realized there were other things that would be nice to have at
 If there is something I could imagine using at work, and on my home computer I will add it to this program.
 For example my custom notetaking file and it's syntax highlighting.
 I first made that within emacs, and found it extremely useful for writing things down and choosing what jumps out at you. 
+
+
+- Test to see if I can commit from webhosted vscode
